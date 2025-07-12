@@ -1,0 +1,55 @@
+<div class="container mt-5">
+
+  <h2>Register</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+    <div class="col-md-3">
+      <label>Name</label>
+      <input class="form-control" formControlName="name" placeholder="Enter your name" />
+      <div class="text-danger" *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid">
+        Name is required.
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label>Email</label>
+      <input class="form-control" type="email" formControlName="email" placeholder="Enter your email" />
+      <div class="text-danger" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
+        <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+        <span *ngIf="registerForm.get('email')?.errors?.['email']">Invalid email format.</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label>Password</label>
+      <input class="form-control" type="password" formControlName="password" placeholder="Enter your password" />
+      <div class="text-danger" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid">
+        <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
+        <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label>Confirm Password</label>
+      <input class="form-control" type="password" formControlName="confirmPassword" placeholder="Confirm your password" />
+      <div class="text-danger" *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid">
+        <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</span>
+        <span *ngIf="registerForm.errors?.['passwordMismatch'] && registerForm.get('confirmPassword')?.touched">Passwords do not match.</span>
+      </div>
+    </div>
+
+    </div>
+
+    <button class="btn btn-primary m-3"  type="submit" [disabled]="registerForm.invalid">
+      Register
+    </button>
+
+
+  </form>
+
+  <p class="text-success mt-3" *ngIf="message">{{ message }}</p>
+  <p class="text-danger mt-3" *ngIf="error">{{ error }}</p>
+</div>
+
+
